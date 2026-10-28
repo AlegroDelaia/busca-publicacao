@@ -11,6 +11,37 @@ st.set_page_config(
     page_icon="🔍",
     layout="wide"
 )
+# ==============================================================================
+# --- CONTROLE DE AUTENTICAÇÃO / LOGIN ---
+# ==============================================================================
+if "autenticado" not in st.session_state:
+    st.session_state.autenticado = False
+
+def validar_login():
+    # Busca do Secrets do Streamlit Cloud (com valores padrão como segurança)
+    usuario_correto = st.secrets.get("USUARIO_ACESSO", "caqcg")
+    senha_correta = st.secrets.get("SENHA_ACESSO", "senhacaqcg")
+    
+    if (st.session_state.get("usuario_input") == usuario_correto and 
+        st.session_state.get("senha_input") == senha_correta):
+        st.session_state.autenticado = True
+        # Limpa do estado por segurança
+        if "senha_input" in st.session_state:
+            del st.session_state.senha_input
+    else:
+        st.error("Usuário ou senha incorretos.")
+
+if not st.session_state.autenticado:
+    st.title("🔒 Acesso Restrito - BGPM CAQCG")
+    st.markdown("Por favor, digite suas credenciais para acessar o sistema.")
+    
+    col1, col2 = st.columns([1, 2])
+    with col1:
+        st.text_input("Usuário:", key="usuario_input")
+        st.text_input("Senha:", type="password", key="senha_input")
+        st.button("Entrar", on_click=validar_login, use_container_width=True)
+        
+    st.stop()
 
 st.title("🔍 Busca de Publicações em PDFs")
 
