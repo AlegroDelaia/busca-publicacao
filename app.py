@@ -32,7 +32,7 @@ def validar_login():
         st.error("Usuário ou senha incorretos.")
 
 if not st.session_state.autenticado:
-    st.title("🔒 Acesso Restrito - BGPM CAQCG")
+    st.title("🔒 Acesso Restrito - Busca BGPM")
     st.markdown("Por favor, digite suas credenciais para acessar o sistema.")
     
     col1, col2 = st.columns([1, 2])
