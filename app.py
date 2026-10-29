@@ -43,7 +43,7 @@ if not st.session_state.autenticado:
         
     st.stop()
 
-st.title("🔍 Busca de Publicações")
+st.title("🔍 Busca Publicações")
 
 CACHE_FILE = "pdf_index_cache.json"
 
